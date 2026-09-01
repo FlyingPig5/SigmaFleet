@@ -1,0 +1,44 @@
+{
+  "name": "sigma-fleet",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@fleet-sdk/compiler": "^0.12.0",
+    "@fleet-sdk/core": "^0.6.1",
+    "@fleet-sdk/wallet": "^0.12.0",
+    "@noble/hashes": "^1.7.1",
+    "canvas-confetti": "^1.9.4",
+    "clsx": "^2.1.1",
+    "ergo-lib-wasm-nodejs": "^0.28.0",
+    "framer-motion": "^12.43.0",
+    "howler": "^2.2.4",
+    "js-beautify": "^2.0.3",
+    "lucide-react": "^1.16.0",
+    "next": "^15.1.7",
+    "qrcode.react": "^4.2.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/howler": "^2.2.12",
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.2",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.23.13",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}
