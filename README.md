@@ -185,10 +185,13 @@ deliberately left open rather than risk rewriting working contract code. The fix
 trade-off change, is to embed the root inside the hashed payload and compare it at
 settlement — O(1).
 
-**`cleanHex32` strips leading type-prefix bytes unconditionally**, which can corrupt an
-otherwise valid 32-byte root whose first bytes happen to match a prefix pattern. No attacker
-is involved; a player could lock up their own deposit. Unlike the above this has no economic
-argument protecting it.
+**Fixed:** `cleanHex32` and `normalizeRootHex` used to strip serialisation prefixes
+unconditionally, so a raw 32-byte commitment that merely *began* with one of those byte
+patterns was truncated and zero-padded into a different — still well-formed — commitment.
+Measured at roughly 1 in 39,000 values, or about 1 in 10,000 matches across the four
+commitments a match writes. The affected player could then neither prove a shot nor claim a
+win, and forfeited their own stake with no attacker involved. They now strip only when the
+input is longer than a bare 32 bytes; `tests/hex_normalisation.test.ts` covers it.
 
 Turn timeouts are currently fixed at 24 hours, and the client caps wagers at 1 ERG. Neither
 is a contract limit.
