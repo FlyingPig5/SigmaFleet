@@ -658,9 +658,21 @@ export function cleanHex32(val: any): string {
   }
   str = String(str).replace(/[\[\]\s]/g, '');
   if (str.startsWith('0x')) str = str.slice(2);
-  if (str.startsWith('0e20')) str = str.slice(4);
-  if (str.startsWith('1a0220')) str = str.slice(6);
-  if (str.startsWith('1a02')) str = str.slice(4);
+
+  // Only strip a serialisation prefix when there is actually one to strip.
+  //
+  // A raw 32-byte commitment is exactly 64 characters. Stripping bytes off one because it
+  // happens to BEGIN with a type-prefix pattern, then zero-padding back to 64, silently
+  // yields a different — and still perfectly well-formed — commitment. That put the wrong
+  // root or board hash on chain roughly once in 39,000 values, after which the player could
+  // neither prove a shot nor claim a win, and lost their own stake with no attacker involved.
+  // A serialised Coll[Byte] of 32 bytes is 68 characters, so length tells the two apart.
+  if (str.length > 64) {
+    if (str.startsWith('0e20')) str = str.slice(4);
+    else if (str.startsWith('1a0220')) str = str.slice(6);
+    else if (str.startsWith('1a02')) str = str.slice(4);
+  }
+
   if (str.length === 64) return str;
   if (str.length > 64) return str.slice(str.length - 64);
   return str.padStart(64, '0');
