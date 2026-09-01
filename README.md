@@ -1,6 +1,6 @@
 # Sigma Fleet — Contracts & Cryptography
 
-On-chain Battleships for the[Ergo](https://ergoplatform.org) blockchain.
+On-chain Battleships for the [Ergo](https://ergoplatform.org) blockchain.
 You can Play it at https://games.ebiome.cc
 
 Two players each stake ERG, hide three ships on an 8×8 grid, and fire five-shot salvos at
