@@ -1,4 +1,3 @@
-export const BATTLESHIPS_SCRIPT_REFERENCE = `
 /**
  * ============================================================================
  *                    SIGMA FLEET - BATTLESHIPS SMART CONTRACT
