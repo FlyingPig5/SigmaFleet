@@ -443,11 +443,17 @@ export function normalizeRootHex(raw: string): string {
   if (!raw) return '';
   let clean = String(raw).trim().toLowerCase();
   if (clean.startsWith('0x')) clean = clean.slice(2);
-  while (clean.startsWith('0e20') || clean.startsWith('1302') || clean.startsWith('1102') || clean.startsWith('1a02')) {
+  // Strip serialisation prefixes only while the value is too long to be a bare 32-byte root.
+  // Unconditional stripping mangles a raw root that merely starts with those bytes — see the
+  // note on cleanHex32 in fleet.ts.
+  while (
+    clean.length > 64 &&
+    (clean.startsWith('0e20') || clean.startsWith('1302') || clean.startsWith('1102') || clean.startsWith('1a02'))
+  ) {
     if (clean.startsWith('0e20')) clean = clean.slice(4);
-    if (clean.startsWith('1302')) clean = clean.slice(4);
-    if (clean.startsWith('1102')) clean = clean.slice(4);
-    if (clean.startsWith('1a02')) clean = clean.slice(4);
+    else if (clean.startsWith('1302')) clean = clean.slice(4);
+    else if (clean.startsWith('1102')) clean = clean.slice(4);
+    else if (clean.startsWith('1a02')) clean = clean.slice(4);
   }
   if (clean.length === 64) return clean;
   if (clean.length > 64) return clean.slice(clean.length - 64);
